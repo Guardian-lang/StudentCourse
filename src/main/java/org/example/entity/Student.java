@@ -8,6 +8,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = "course")
 @Entity
 @Table(name = "student", schema = "itacademy")
 public class Student {
@@ -19,4 +20,6 @@ public class Student {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
+    private StudentProfile studentProfile;
 }

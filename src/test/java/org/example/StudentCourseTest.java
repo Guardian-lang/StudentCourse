@@ -19,7 +19,7 @@ public class StudentCourseTest {
                 .name("Java EE")
                 .build();
         var student = Student.builder()
-                .name("int@mail.com")
+                .name("Андрей")
                 .build();
 
         course.addStudent(student);
