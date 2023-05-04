@@ -10,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString(exclude = "students")
 @Entity
 @Table(name = "course", schema = "itacademy")
 public class Course {
@@ -26,4 +27,8 @@ public class Course {
         students.add(student);
         student.setCourse(this);
     }
+
+    @Builder.Default
+    @OneToMany(mappedBy = "course")
+    private List<TrainerCourse> trainerCourses = new ArrayList<>();
 }
