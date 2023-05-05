@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString(exclude = "students")
+@ToString(exclude = {"students", "trainerCourses"})
 @Entity
 @Table(name = "course", schema = "itacademy")
 public class Course {
