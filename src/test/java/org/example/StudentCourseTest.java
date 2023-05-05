@@ -21,7 +21,7 @@ public class StudentCourseTest {
                 .name("Java EE")
                 .build();
         var student = Student.builder()
-                .name("Андрей")
+                .name("Алексей")
                 .build();
 
         course.addStudent(student);
@@ -67,6 +67,44 @@ public class StudentCourseTest {
         trainerCourse3.setTrainer(trainer);
         trainerCourse3.setCourse(course3);
         session.save(trainerCourse3);
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Test
+    public void updateCourseTest() {
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        @Cleanup var sessionFactory = configuration.buildSessionFactory();
+        @Cleanup var session = sessionFactory.openSession();
+
+        var result = session.createQuery("""
+                        update Course set
+                        name = :name1
+                        where name = :name2
+                        """, Course.class)
+                .setParameter("name1", "Go")
+                .setParameter("name2", "Java EE")
+                .list();
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Test
+    public void deleteCourseTest() {
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        @Cleanup var sessionFactory = configuration.buildSessionFactory();
+        @Cleanup var session = sessionFactory.openSession();
+
+        var result = session.createQuery("""
+                        delete Course
+                        where name = :name
+                        """, Course.class)
+                .setParameter("name", "Java EE")
+                .list();
 
         session.getTransaction().commit();
         session.close();
